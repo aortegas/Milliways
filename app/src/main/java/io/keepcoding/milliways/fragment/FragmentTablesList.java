@@ -43,25 +43,16 @@ public class FragmentTablesList extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        if (activity instanceof  TablesListListener) {
-            mTablesListListener = (TablesListListener) activity;
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_tables_list, container, false);
 
         // Conect with view.
-        ListView listView = (ListView) root.findViewById(R.id.tables_list_view_fragment);
+        ListView listView = (ListView) root.findViewById(R.id.fragment_tables_list_listview_id);
 
         // Create adapter for list. We give the context, style and data tables.
-        final ArrayAdapter<Table> arrayAdapter = new ArrayAdapter<Table>(getActivity(),android.R.layout.simple_list_item_1,mTables.getTables());
+        final ArrayAdapter<Table> arrayAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,mTables.getTables());
 
         // Assign the adapter to ListView.
         listView.setAdapter(arrayAdapter);

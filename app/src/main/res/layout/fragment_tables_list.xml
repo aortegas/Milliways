@@ -6,7 +6,7 @@
              tools:context=".fragment.FragmentTablesList">
 
     <ListView
-        android:id="@+id/tables_list_view_fragment"
+        android:id="@+id/fragment_tables_list_listview_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>

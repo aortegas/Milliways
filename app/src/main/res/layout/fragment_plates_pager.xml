@@ -8,16 +8,16 @@
     tools:context=".fragment.FragmentPlatesPager">
 
     <ListView
-        android:id="@+id/table_pager_view"
+        android:id="@+id/fragment_plates_pager_listview_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/button_add_view"
+        android:id="@+id/fragment_plates_pager_button_add_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@+id/table_pager_view"
+        app:layout_anchor="@+id/fragment_plates_pager_listview_id"
         app:layout_anchorGravity="bottom|end|right"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:src="@drawable/ic_plus"/>

@@ -32,12 +32,12 @@ public class ActivityTablesList extends AppCompatActivity implements FragmentTab
 
         // If we are not associated fragment of times before (this method is executed with the rotation of the device),
         // We indicate the Fragment Manager to load it.
-        if (fragmentManager.findFragmentById(R.id.tables_list_view) == null) {
+        if (fragmentManager.findFragmentById(R.id.activity_tables_list_frame_id) == null) {
 
             // Transactions allow loading and removal of various fragment at the same time.
             // We inform the model with the tables to fragment.
             fragmentManager.beginTransaction()
-                    .add(R.id.tables_list_view, new FragmentTablesList(mTables))
+                    .add(R.id.activity_tables_list_frame_id, new FragmentTablesList(mTables))
                     .commit();
         }
     }

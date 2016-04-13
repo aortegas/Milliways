@@ -13,7 +13,7 @@ import io.keepcoding.milliways.fragment.FragmentPlatesPager;
 import io.keepcoding.milliways.model.Plate;
 import io.keepcoding.milliways.model.Table;
 
-public class ActivityTableList extends AppCompatActivity implements FragmentPlatesPager.TablePagerListener {
+public class ActivityTableList extends AppCompatActivity implements FragmentPlatesPager.PlatesPagerListener {
 
     // Declare a variable for data of table.
     private Table mTable;
@@ -30,20 +30,22 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
 
         // We indicate the action bar a button to go back.
         // For this to work, we must implement the methods menu.
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + mTable.getName());
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + mTable.getName());
+        }
 
         // We go to load dinamically the fragment, with FragmentManager.
         FragmentManager fragmentManager = getFragmentManager();
 
         // If we are not associated fragment of times before (this method is executed with the rotation of the device),
         // We indicate the Fragment Manager to load it.
-        if (fragmentManager.findFragmentById(R.id.table_pager_view) == null) {
+        if (fragmentManager.findFragmentById(R.id.activity_table_list_frame_id) == null) {
 
             // Transactions allow loading and removal of various fragment at the same time.
             // We inform the model with the tables to fragment.
             fragmentManager.beginTransaction()
-                    .add(R.id.table_pager_view, new FragmentPlatesPager(mTable))
+                    .add(R.id.activity_table_list_frame_id, new FragmentPlatesPager(mTable))
                     .commit();
         }
     }
