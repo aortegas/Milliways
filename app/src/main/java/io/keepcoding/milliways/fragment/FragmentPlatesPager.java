@@ -1,21 +1,18 @@
 package io.keepcoding.milliways.fragment;
 
-
-import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import java.util.LinkedList;
 
 import io.keepcoding.milliways.R;
 import io.keepcoding.milliways.model.Plate;
-import io.keepcoding.milliways.model.Table;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,15 +21,20 @@ public class FragmentPlatesPager extends Fragment {
 
     // Attributes.
     // We keep the data model to show.
-    private Table mTable;
+    private LinkedList<Plate> mPlates;
     // We keep a reference to our activity, that will be our listener.
     private PlatesPagerListener mPlatesPagerListener;
-    // We keep the adapter from list.
-    private ArrayAdapter<Plate> arrayAdapter;
 
-    // Constructor.
-    public FragmentPlatesPager(Table table) {
-        mTable = table;
+    // Constructors.
+    public FragmentPlatesPager() {
+    }
+
+    public static FragmentPlatesPager newInstance(LinkedList<Plate> plates) {
+
+        // We create, initialize and return the fragment.
+        FragmentPlatesPager fragmentPlatesPager = new FragmentPlatesPager();
+        fragmentPlatesPager.mPlates = plates;
+        return fragmentPlatesPager;
     }
 
     // We implement onAttach methods to make sure when we have available access to our activity.
@@ -53,18 +55,9 @@ public class FragmentPlatesPager extends Fragment {
 
         // Conect with view.
         ListView listView = (ListView) root.findViewById(R.id.fragment_plates_pager_listview_id);
-        FloatingActionButton addButton = (FloatingActionButton) root.findViewById(R.id.fragment_plates_pager_button_add_id);
-
-
-
 
         // Create adapter for list. We give the context, style and data tables.
-        arrayAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,mTable.getPlates());
-
-
-
-
-
+        ArrayAdapter<Plate> arrayAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,mPlates);
 
         // Assign the adapter to ListView.
         listView.setAdapter(arrayAdapter);
@@ -78,32 +71,10 @@ public class FragmentPlatesPager extends Fragment {
                 if (mPlatesPagerListener != null) {
 
                     // We get the selected plate in the model.
-                    Plate plateSelected = mTable.getPlates().get(position);
+                    Plate plateSelected = mPlates.get(position);
 
                     // We notice the plate selected to the listener.
                     mPlatesPagerListener.onPlateSelected(plateSelected, position);
-                }
-            }
-        });
-
-        // Assign the listener to FloatingActionButton.
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Notice my activity about the selection. We ensure that our activity implements our interface: TableListListener
-                if (mPlatesPagerListener != null) {
-
-                    // Notice my activity for add new plate to table.
-                    mPlatesPagerListener.onAddPlateToTable(mTable);
-
-
-
-
-
-                    // Notice to the adapter that data change.
-                    arrayAdapter.notifyDataSetChanged();
-
                 }
             }
         });
@@ -123,9 +94,6 @@ public class FragmentPlatesPager extends Fragment {
     public interface PlatesPagerListener {
 
         // Method for plates selection.
-        void onPlateSelected(Plate plate, int posicion);
-
-        // Method for add plates selection.
-        void onAddPlateToTable(Table table);
+        void onPlateSelected(Plate plate, int position);
     }
 }

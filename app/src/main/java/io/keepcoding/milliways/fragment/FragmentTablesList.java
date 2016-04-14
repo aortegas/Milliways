@@ -1,10 +1,9 @@
 package io.keepcoding.milliways.fragment;
 
 
-import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +26,16 @@ public class FragmentTablesList extends Fragment {
     // We keep a reference to our activity, that will be our listener.
     private TablesListListener mTablesListListener;
 
-    // Constructor.
-    public FragmentTablesList(Tables tables) {
-        mTables = tables;
+    // Constructors.
+    public FragmentTablesList() {
+    }
+
+    public static FragmentTablesList newInstance(Tables tables) {
+
+        // We create, initialize and return the fragment.
+        FragmentTablesList fragmentTablesList = new FragmentTablesList();
+        fragmentTablesList.mTables = tables;
+        return fragmentTablesList;
     }
 
     // We implement onAttach methods to make sure when we have available access to our activity.

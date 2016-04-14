@@ -9,11 +9,12 @@ import android.view.MenuItem;
 
 import io.keepcoding.milliways.Constant;
 import io.keepcoding.milliways.R;
+import io.keepcoding.milliways.fragment.FragmentPlatesAdd;
 import io.keepcoding.milliways.fragment.FragmentPlatesPager;
 import io.keepcoding.milliways.model.Plate;
 import io.keepcoding.milliways.model.Table;
 
-public class ActivityTableList extends AppCompatActivity implements FragmentPlatesPager.PlatesPagerListener {
+public class ActivityTableList extends AppCompatActivity implements FragmentPlatesPager.PlatesPagerListener, FragmentPlatesAdd.PlatesAddListener{
 
     // Declare a variable for data of table.
     private Table mTable;
@@ -22,6 +23,7 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Associated view with fragment.
         setContentView(R.layout.activity_table_list);
 
         // We retrieve information from the selected table of intent, with the public constant stated above.
@@ -40,12 +42,14 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
 
         // If we are not associated fragment of times before (this method is executed with the rotation of the device),
         // We indicate the Fragment Manager to load it.
-        if (fragmentManager.findFragmentById(R.id.activity_table_list_frame_id) == null) {
+        if ((fragmentManager.findFragmentById(R.id.activity_table_list_frame_list_id) == null) &&
+            (fragmentManager.findFragmentById(R.id.activity_table_list_frame_button_id) == null)) {
 
             // Transactions allow loading and removal of various fragment at the same time.
             // We inform the model with the tables to fragment.
             fragmentManager.beginTransaction()
-                    .add(R.id.activity_table_list_frame_id, new FragmentPlatesPager(mTable))
+                    .add(R.id.activity_table_list_frame_list_id, FragmentPlatesPager.newInstance(mTable.getPlates()))
+                    .add(R.id.activity_table_list_frame_button_id, new FragmentPlatesAdd())
                     .commit();
         }
     }
@@ -74,36 +78,20 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
     public void onPlateSelected(Plate plate, int posicion) {
 
 
-
-
-
-
-
-
         Log.v("ActivityTableList", "Se ha seleccionado el plato numero: " + posicion);
-
-
-
-
-
-
 
     }
 
     @Override
-    public void onAddPlateToTable(Table table) {
+    public void onAddPlateToTable() {
 
 
+        Log.v("ActivityTableList", "Se ha seleccionado añadir un nuevo plato");
 
-
-
-        Plate plate = new Plate("Plato nuevo");
-        mTable.addPlateToTable(plate);
-
-
+//        Plate plate = new Plate("Plato nuevo");
+//        mTable.addPlateToTable(plate);
 
 
 
     }
-
 }

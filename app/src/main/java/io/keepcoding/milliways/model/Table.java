@@ -24,14 +24,14 @@ public class Table implements Serializable {
     // Constructors.
     public Table(String name) {
         mName = name;
-        mPlates = new LinkedList<Plate>();
+        mPlates = new LinkedList<>();
     }
 
-    public Table(String name, LinkedList<Plate> plates) {
-        mName = name;
-        mPlates = plates;
-    }
-
+//    public Table(String name, LinkedList<Plate> plates) {
+//        mName = name;
+//        mPlates = plates;
+//    }
+//
     // Methods.
     public void addPlateToTable(Plate plate) {
         this.mPlates.add(plate);

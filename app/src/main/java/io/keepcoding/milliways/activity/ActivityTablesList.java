@@ -37,7 +37,7 @@ public class ActivityTablesList extends AppCompatActivity implements FragmentTab
             // Transactions allow loading and removal of various fragment at the same time.
             // We inform the model with the tables to fragment.
             fragmentManager.beginTransaction()
-                    .add(R.id.activity_tables_list_frame_id, new FragmentTablesList(mTables))
+                    .add(R.id.activity_tables_list_frame_id, FragmentTablesList.newInstance(mTables))
                     .commit();
         }
     }
