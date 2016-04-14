@@ -1,16 +1,13 @@
 package io.keepcoding.milliways.model;
 
-import android.widget.TableLayout;
-
+import java.io.Serializable;
 import java.util.LinkedList;
-
-import io.keepcoding.milliways.R;
 
 /**
  * Created by alberto on 12/4/16.
  *  * Class for definition of an array of tables
  */
-public class Tables {
+public class Tables implements Serializable {
 
     // Attributes.
     private LinkedList<Table> mTables;
@@ -32,7 +29,7 @@ public class Tables {
     public Tables() {
 
         // Create list of tables.
-        mTables = new LinkedList<Table>();
+        mTables = new LinkedList<>();
 
         // Add Table to Tables.
         mTables.add(new Table("Mesa 1"));

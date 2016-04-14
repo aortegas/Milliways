@@ -5,24 +5,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import io.keepcoding.milliways.Constant;
 import io.keepcoding.milliways.R;
 import io.keepcoding.milliways.fragment.FragmentTablesList;
+import io.keepcoding.milliways.model.Plate;
 import io.keepcoding.milliways.model.Table;
 import io.keepcoding.milliways.model.Tables;
 
 public class ActivityTablesList extends AppCompatActivity implements FragmentTablesList.TablesListListener {
 
     // Declare variables for model.
-    private Tables mTables;
+    private Tables mTablesModel;
+    private LinkedList<Plate> mPlatesModel;
     private int mTableSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Access to model of tables.
-        mTables = new Tables();
+        // Get a data model.
+        mTablesModel = (Tables) getIntent().getSerializableExtra(Constant.EXTRA_TABLES);
+        ArrayList arrayListTemp = (ArrayList) getIntent().getSerializableExtra(Constant.EXTRA_PLATES);
+        mPlatesModel = new LinkedList<>(arrayListTemp);
 
         // We load the the layout of activity.
         setContentView(R.layout.activity_tables_list);
@@ -37,7 +44,7 @@ public class ActivityTablesList extends AppCompatActivity implements FragmentTab
             // Transactions allow loading and removal of various fragment at the same time.
             // We inform the model with the tables to fragment.
             fragmentManager.beginTransaction()
-                    .add(R.id.activity_tables_list_frame_id, FragmentTablesList.newInstance(mTables))
+                    .add(R.id.activity_tables_list_frame_id, FragmentTablesList.newInstance(mTablesModel))
                     .commit();
         }
     }
@@ -51,9 +58,12 @@ public class ActivityTablesList extends AppCompatActivity implements FragmentTab
 
         // We started the activity ActivityTableList to show a table plates.
         Intent intent = new Intent(this, ActivityTableList.class);
+        Bundle extras = new Bundle();
 
         // We included in an intent information of the plates from the table.
-        intent.putExtra(Constant.EXTRA_TABLE_DATA, mTables.getTableAtIndex(position));
+        extras.putSerializable(Constant.EXTRA_TABLE_DATA, mTablesModel.getTableAtIndex(position));
+        extras.putSerializable(Constant.EXTRA_PLATES, mPlatesModel);
+        intent.putExtras(extras);
 
         // Finally, we start the activity.
         startActivityForResult(intent, Constant.REQUEST_TABLE);
@@ -68,7 +78,7 @@ public class ActivityTablesList extends AppCompatActivity implements FragmentTab
         if (resultCode == RESULT_OK) {
             if (requestCode == Constant.REQUEST_TABLE) {
                 Table table = (Table) data.getSerializableExtra(Constant.EXTRA_TABLE_RESULT);
-                mTables.setTableAtIndex(table, mTableSelected);
+                mTablesModel.setTableAtIndex(table, mTableSelected);
             }
         }
     }

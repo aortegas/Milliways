@@ -20,17 +20,17 @@ public class Plate implements Serializable {
 //    public String getName() {
 //        return mName;
 //    }
-//
-//    // Constructors.
-//    public Plate(String name) {
-//        mName = name;
-//        mDescription = "";
-//        mImage = "";
-//        mPrice = 0.0;
-//        mAllegens = new LinkedList<Allergen>();
-//    }
-//
-//    // Override toString to show de table name at the list.
+
+    // Constructors.
+    public Plate(String name, String description, String image, double price, LinkedList<Allergen> allergens) {
+        mName = name;
+        mDescription = description;
+        mImage = image;
+        mPrice = price;
+        mAllegens = allergens;
+    }
+
+    // Override toString to show de table name at the list.
 //    public String toString() {
 //        return getName();
 //    }

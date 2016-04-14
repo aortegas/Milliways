@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Milliways</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="PLATES">Platos</string>
+    <string name="DOWLOAD_KO">No se pudo descargar la carta de platos.</string>
+    <string name="ERROR">Error</string>
+    <string name="REINTENTAR">Reintentar</string>
+    <string name="ACABAR">Acabar</string>
 </resources>
