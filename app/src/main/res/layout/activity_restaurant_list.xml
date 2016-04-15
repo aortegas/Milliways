@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ActivityPlatesList">
+    tools:context=".activity.ActivityRestaurantList">
 
-    <!-- We load dinamic the fragment in ActivityTablesList with id of FrameLayout. -->
+    <!-- We load dinamic the fragment in ActivityRestaurantList with id of FrameLayout. -->
     <FrameLayout
-        android:id="@+id/activity_plates_list_frame_id"
+        android:id="@+id/activity_tables_frame_list_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>

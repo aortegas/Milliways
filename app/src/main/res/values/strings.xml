@@ -5,4 +5,5 @@
     <string name="ERROR">Error</string>
     <string name="REINTENTAR">Reintentar</string>
     <string name="ACABAR">Acabar</string>
+    <string name="DIVISA">"Euros"</string>
 </resources>

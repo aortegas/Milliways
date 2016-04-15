@@ -1,7 +1,6 @@
 package io.keepcoding.milliways.model;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 
 /**
  * Created by alberto on 12/4/16.
@@ -11,10 +10,19 @@ public class Allergen implements Serializable {
 
     // Attributes.
     private String mName;
-    private String mImage;
+    private int mImage;
+
+    // Getters and Setters.
+    public String getName() {
+        return mName;
+    }
+
+    public int getImage() {
+        return mImage;
+    }
 
     // Constructors.
-    public Allergen(String name, String image) {
+    public Allergen(String name, int image) {
         mName = name;
         mImage = image;
     }

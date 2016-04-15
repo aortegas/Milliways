@@ -14,14 +14,14 @@ import io.keepcoding.milliways.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentPlatesAdd extends Fragment {
+public class FragmentOrderAdd extends Fragment {
 
     // Attributes.
     // We keep a reference to our activity, that will be our listener.
-    private PlatesAddListener mPlatesAddListener;
+    private OrderAddListener mOrderAddListener;
 
     // Constructor.
-    public FragmentPlatesAdd() {
+    public FragmentOrderAdd() {
     }
 
     // We implement onAttach methods to make sure when we have available access to our activity.
@@ -29,8 +29,8 @@ public class FragmentPlatesAdd extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (getActivity() instanceof PlatesAddListener) {
-            mPlatesAddListener = (PlatesAddListener) getActivity();
+        if (getActivity() instanceof OrderAddListener) {
+            mOrderAddListener = (OrderAddListener) getActivity();
         }
     }
 
@@ -38,7 +38,7 @@ public class FragmentPlatesAdd extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_plates_add, container, false);
+        View root = inflater.inflate(R.layout.fragment_order_add, container, false);
 
         // Conect with view.
         FloatingActionButton addButton = (FloatingActionButton) root.findViewById(R.id.fragment_plates_add_button_add_id);
@@ -49,10 +49,10 @@ public class FragmentPlatesAdd extends Fragment {
             public void onClick(View v) {
 
                 // Notice my activity about the selection. We ensure that our activity implements our interface: TableListListener
-                if (mPlatesAddListener != null) {
+                if (mOrderAddListener != null) {
 
                     // Notice my activity for add new plate to table.
-                    mPlatesAddListener.onAddPlateToTable();
+                    mOrderAddListener.onAddOrderToTable();
                 }
             }
         });
@@ -64,14 +64,14 @@ public class FragmentPlatesAdd extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mPlatesAddListener = null;
+        mOrderAddListener = null;
     }
 
     // We create a public interface for communicate with our activity.
     // Therefore, our activity is necessary that implements this interface.
-    public interface PlatesAddListener {
+    public interface OrderAddListener {
 
         // Method for add plates selection.
-        void onAddPlateToTable();
+        void onAddOrderToTable();
     }
 }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_16dp"
+    android:background="@color/white"
+    app:cardElevation="@dimen/elevation_10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignTop="@+id/fragment_plate_card_image_imageview_id"
+            android:layout_toRightOf="@+id/fragment_plate_card_image_imageview_id"
+            android:layout_margin="@dimen/margin_16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:id="@+id/fragment_plate_card_name_textview_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plate"/>
+
+            <TextView
+                android:id="@+id/fragment_plate_card_price_textview_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_5dp"
+                android:text="Price"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_5dp">
+
+                <ImageView
+                    android:id="@+id/fragment_plate_card_allergen1_imageview_id"
+                    android:layout_width="@dimen/plate_image_40dp"
+                    android:layout_height="@dimen/plate_image_40dp"/>
+
+                <ImageView
+                    android:id="@+id/fragment_plate_card_allergen2_imageview_id"
+                    android:layout_width="@dimen/plate_image_40dp"
+                    android:layout_height="@dimen/plate_image_40dp"
+                    android:layout_toRightOf="@id/fragment_plate_card_allergen1_imageview_id"/>
+
+                <ImageView
+                    android:id="@+id/fragment_plate_card_allergen3_imageview_id"
+                    android:layout_width="@dimen/plate_image_40dp"
+                    android:layout_height="@dimen/plate_image_40dp"
+                    android:layout_toRightOf="@id/fragment_plate_card_allergen2_imageview_id"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/fragment_plate_card_image_imageview_id"
+            android:layout_width="@dimen/plate_image_125dp"
+            android:layout_height="@dimen/plate_image_125dp"
+            android:src="@drawable/plato01"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:id="@+id/fragment_plate_card_description_textview_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:layout_below="@id/fragment_plate_card_image_imageview_id"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

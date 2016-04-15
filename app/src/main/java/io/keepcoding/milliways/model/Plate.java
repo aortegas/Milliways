@@ -12,26 +12,37 @@ public class Plate implements Serializable {
     // Attributes.
     private String mName;
     private String mDescription;
-    private String mImage;
+    private int mImage;
     private double  mPrice;
     private LinkedList<Allergen> mAllegens;
 
-    // Getter y Setter.
-//    public String getName() {
-//        return mName;
-//    }
+    // Getters and Setters.
+    public String getName() {
+        return mName;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public int getImage() {
+        return mImage;
+    }
+
+    public double getPrice() {
+        return mPrice;
+    }
+
+    public LinkedList<Allergen> getAllegens() {
+        return mAllegens;
+    }
 
     // Constructors.
-    public Plate(String name, String description, String image, double price, LinkedList<Allergen> allergens) {
+    public Plate(String name, String description, int image, double price, LinkedList<Allergen> allergens) {
         mName = name;
         mDescription = description;
         mImage = image;
         mPrice = price;
         mAllegens = allergens;
     }
-
-    // Override toString to show de table name at the list.
-//    public String toString() {
-//        return getName();
-//    }
 }

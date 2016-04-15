@@ -22,13 +22,13 @@ import io.keepcoding.milliways.Constant;
 import io.keepcoding.milliways.R;
 import io.keepcoding.milliways.model.Allergen;
 import io.keepcoding.milliways.model.Plate;
-import io.keepcoding.milliways.model.Tables;
+import io.keepcoding.milliways.model.Restaurant;
 
 public class ActivityMain extends AppCompatActivity {
 
     // Declare variables for model.
     LinkedList<Plate> mPlatesModel;
-    Tables mTablesModel;
+    Restaurant mRestaurantModel;
     // Declare variables for view.
     ProgressBar mProgressBar;
 
@@ -43,7 +43,7 @@ public class ActivityMain extends AppCompatActivity {
         mProgressBar = (ProgressBar) findViewById(R.id.activity_main_progress_view_id);
 
         // Access to model of tables.
-        mTablesModel = new Tables();
+        mRestaurantModel = new Restaurant();
 
         // Download data of plates.
         downloadPlates();
@@ -130,16 +130,24 @@ public class ActivityMain extends AppCompatActivity {
                         // We declare variables for plates data and get de data from JSON nodes.
                         String name = (String) currentPlate.get(Constant.PLATO);
                         String description = (String) currentPlate.get(Constant.DESCRIPCION);
-                        String image = ("R.drawable.plato" + currentPlate.get(Constant.IMAGEN));
+
+                        String fileName = (String) currentPlate.get(Constant.IMAGEN);
+                        fileName = fileName.substring(0, fileName.indexOf("."));
+                        int image = getResources().getIdentifier(Constant.PLATE + fileName, Constant.DRAWABLE, ActivityMain.this.getPackageName());
+
                         double price = currentPlate.getDouble(Constant.PRECIO);
                         LinkedList<Allergen> allergens = new LinkedList<>();
 
                         JSONArray jsonArrayAllergens = currentPlate.getJSONArray(Constant.ALERGENOS);
                         for (int j = 0; j < jsonArrayAllergens.length(); j++) {
 
-                            JSONObject currentAllegen = jsonArrayAllergens.getJSONObject(j);
-                            String allergenName = (String) currentAllegen.get(Constant.ALERGENO);
-                            String allergenImage = ("R.drawable." + currentAllegen.get(Constant.ALER_IMG));
+                            JSONObject currentAllergen = jsonArrayAllergens.getJSONObject(j);
+                            String allergenName = (String) currentAllergen.get(Constant.ALERGENO);
+
+                            String fileNameAllergen = (String) currentAllergen.get(Constant.ALER_IMG);
+                            fileNameAllergen = fileNameAllergen.substring(0, fileNameAllergen.indexOf("."));
+                            int allergenImage = getResources().getIdentifier(fileNameAllergen, Constant.DRAWABLE, getPackageName());
+
                             Allergen allergen = new Allergen(allergenName, allergenImage);
                             allergens.add(allergen);
                         }
@@ -148,9 +156,6 @@ public class ActivityMain extends AppCompatActivity {
                         Plate plate = new Plate(name, description, image, price, allergens);
                         platesModel.add(plate);
                     }
-
-                    // We retard the response.
-                    Thread.sleep(1000);
 
                     // Return data of plates.
                     return platesModel;
@@ -194,10 +199,10 @@ public class ActivityMain extends AppCompatActivity {
 
                     // We started the activity ActivityTableList to show a table plates.
                     // We create the bundle to pass the data model to next activity.
-                    Intent intent = new Intent(ActivityMain.this, ActivityTablesList.class);
+                    Intent intent = new Intent(ActivityMain.this, ActivityRestaurantList.class);
                     Bundle extras = new Bundle();
-                    extras.putSerializable(Constant.EXTRA_TABLES, mTablesModel);
-                    extras.putSerializable(Constant.EXTRA_PLATES, mPlatesModel);
+                    extras.putSerializable(Constant.EXTRA_TABLES_DATA, mRestaurantModel);
+                    extras.putSerializable(Constant.EXTRA_PLATES_DATA, mPlatesModel);
                     intent.putExtras(extras);
 
                     // Finally, we start the activity.

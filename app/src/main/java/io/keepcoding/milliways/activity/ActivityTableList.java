@@ -12,14 +12,14 @@ import java.util.LinkedList;
 
 import io.keepcoding.milliways.Constant;
 import io.keepcoding.milliways.R;
-import io.keepcoding.milliways.fragment.FragmentPlatesAdd;
-import io.keepcoding.milliways.fragment.FragmentPlatesPager;
+import io.keepcoding.milliways.fragment.FragmentOrderAdd;
+import io.keepcoding.milliways.fragment.FragmentPlateCardList;
 import io.keepcoding.milliways.model.Plate;
 import io.keepcoding.milliways.model.Table;
 
-public class ActivityTableList extends AppCompatActivity implements FragmentPlatesPager.PlatesPagerListener, FragmentPlatesAdd.PlatesAddListener{
+public class ActivityTableList extends AppCompatActivity implements FragmentPlateCardList.PlatesPagerListener, FragmentOrderAdd.OrderAddListener{
 
-    // Declare a variable for data of table.
+    // Declare a variable for model.
     private Table mTable;
     private LinkedList<Plate> mPlatesModel;
 
@@ -33,7 +33,7 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
         // We retrieve information from the selected table of intent, with the public constant stated above.
         // If we don't have the information, we say charge the first table.
         mTable = (Table) getIntent().getSerializableExtra(Constant.EXTRA_TABLE_DATA);
-        ArrayList arrayListTemp = (ArrayList) getIntent().getSerializableExtra(Constant.EXTRA_PLATES);
+        ArrayList arrayListTemp = (ArrayList) getIntent().getSerializableExtra(Constant.EXTRA_PLATES_DATA);
         mPlatesModel = new LinkedList<>(arrayListTemp);
 
         // We indicate the action bar a button to go back.
@@ -51,11 +51,13 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
         if ((fragmentManager.findFragmentById(R.id.activity_table_list_frame_list_id) == null) &&
             (fragmentManager.findFragmentById(R.id.activity_table_list_frame_button_id) == null)) {
 
+            LinkedList<Plate> platesInTable = new LinkedList<>();
+
             // Transactions allow loading and removal of various fragment at the same time.
             // We inform the model with the tables to fragment.
             fragmentManager.beginTransaction()
-                    .add(R.id.activity_table_list_frame_list_id, FragmentPlatesPager.newInstance(mTable.getPlates()))
-                    .add(R.id.activity_table_list_frame_button_id, new FragmentPlatesAdd())
+                    .add(R.id.activity_table_list_frame_list_id, FragmentPlateCardList.newInstance(platesInTable))
+                    .add(R.id.activity_table_list_frame_button_id, new FragmentOrderAdd())
                     .commit();
         }
     }
@@ -81,14 +83,14 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
 
     // Implements the interface, to allow comunicate with our fragment
     @Override
-    public void onPlateSelected(Plate plate, int posicion) {
+    public void onPlateSelected(Plate plate) {
 
 
 
 
 
 
-        Log.v("ActivityTableList", "Se ha seleccionado el plato numero: " + posicion);
+        Log.v("ActivityTableList", "Se ha seleccionado el plato: " + plate.getName());
 
 
 
@@ -97,10 +99,10 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
     }
 
     @Override
-    public void onAddPlateToTable() {
+    public void onAddOrderToTable() {
 
         // We started the activity ActivityTableList to show a table plates.
-        Intent intent = new Intent(this, ActivityPlatesList.class);
+        Intent intent = new Intent(this, ActivityPlateList.class);
 
         // We included in an intent information of the plates from the table.
         intent.putExtra(Constant.EXTRA_PLATES_DATA, mPlatesModel);

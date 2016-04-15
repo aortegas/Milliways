@@ -7,7 +7,7 @@ import java.util.LinkedList;
  * Created by alberto on 12/4/16.
  *  * Class for definition of an array of tables
  */
-public class Tables implements Serializable {
+public class Restaurant implements Serializable {
 
     // Attributes.
     private LinkedList<Table> mTables;
@@ -26,12 +26,12 @@ public class Tables implements Serializable {
     }
 
     // Constructors.
-    public Tables() {
+    public Restaurant() {
 
         // Create list of tables.
         mTables = new LinkedList<>();
 
-        // Add Table to Tables.
+        // Add Table to Restaurant.
         mTables.add(new Table("Mesa 1"));
         mTables.add(new Table("Mesa 2"));
         mTables.add(new Table("Mesa 3"));

@@ -11,31 +11,27 @@ public class Table implements Serializable {
 
     // Attributes.
     private String mName;
-    private LinkedList<Plate> mPlates;
+    private LinkedList<Order> mOrders;
 
     // Getter y Setter.
     public String getName() {
         return mName;
     }
-    public LinkedList<Plate> getPlates() {
-        return mPlates;
+
+    public LinkedList<Order> getOrders() {
+        return mOrders;
     }
 
     // Constructors.
     public Table(String name) {
         mName = name;
-        mPlates = new LinkedList<>();
+        mOrders = new LinkedList<>();
     }
 
-//    public Table(String name, LinkedList<Plate> plates) {
-//        mName = name;
-//        mPlates = plates;
-//    }
-//
     // Methods.
-    public void addPlateToTable(Plate plate) {
-        this.mPlates.add(plate);
-    }
+    //public void addOrderToTable(Order order) {
+    //    this.mOrders.add(order);
+    //}
 
     // Override toString to show de table name at the list.
     public String toString() {

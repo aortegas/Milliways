@@ -5,9 +5,9 @@
     android:id="@+id/fragment_plates_add_button_add_id"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:layout_margin="@dimen/margin_16dp"
     android:src="@drawable/ic_plus"
-    tools:context=".fragment.FragmentPlatesAdd">
+    tools:context=".fragment.FragmentOrderAdd">
 </android.support.design.widget.FloatingActionButton>
 
 

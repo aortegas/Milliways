@@ -7,15 +7,14 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
 
 import io.keepcoding.milliways.Constant;
 import io.keepcoding.milliways.R;
-import io.keepcoding.milliways.fragment.FragmentPlatesPager;
+import io.keepcoding.milliways.fragment.FragmentPlateCardList;
 import io.keepcoding.milliways.model.Plate;
 
-public class ActivityPlatesList extends AppCompatActivity implements FragmentPlatesPager.PlatesPagerListener {
+public class ActivityPlateList extends AppCompatActivity implements FragmentPlateCardList.PlatesPagerListener {
 
     // Declare a variable for data of table.
     private LinkedList<Plate> mPlatesModel;
@@ -25,7 +24,7 @@ public class ActivityPlatesList extends AppCompatActivity implements FragmentPla
         super.onCreate(savedInstanceState);
 
         // Associated view with fragment.
-        setContentView(R.layout.activity_plates_list);
+        setContentView(R.layout.activity_plate_list);
 
         // We retrieve information from the selected table of intent, with the public constant stated above.
         // If we don't have the information, we say charge the first table.
@@ -44,12 +43,12 @@ public class ActivityPlatesList extends AppCompatActivity implements FragmentPla
 
         // If we are not associated fragment of times before (this method is executed with the rotation of the device),
         // We indicate the Fragment Manager to load it.
-        if (fragmentManager.findFragmentById(R.id.activity_plates_list_frame_id) == null) {
+        if (fragmentManager.findFragmentById(R.id.activity_plate_list_frame_list_id) == null) {
 
             // Transactions allow loading and removal of various fragment at the same time.
             // We inform the model with the tables to fragment.
             fragmentManager.beginTransaction()
-                    .add(R.id.activity_plates_list_frame_id, FragmentPlatesPager.newInstance(mPlatesModel))
+                    .add(R.id.activity_plate_list_frame_list_id, FragmentPlateCardList.newInstance(mPlatesModel))
                     .commit();
         }
     }
@@ -72,14 +71,14 @@ public class ActivityPlatesList extends AppCompatActivity implements FragmentPla
 
     // Implements the interface, to allow comunicate with our fragment
     @Override
-    public void onPlateSelected(Plate plate, int posicion) {
+    public void onPlateSelected(Plate plate) {
 
 
 
 
 
 
-        Log.v("ActivityPlatesList", "Se ha seleccionado el plato numero: " + posicion);
+        Log.v("ActivityPlateList", "Se ha seleccionado el plato: " + plate.getName());
 
 
 
