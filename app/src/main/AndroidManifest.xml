@@ -26,6 +26,8 @@
         </activity>
         <activity android:name=".activity.ActivityPlateDetail">
         </activity>
+        <activity android:name=".activity.ActivitySettingsDetailTable">
+        </activity>
     </application>
 
 </manifest>

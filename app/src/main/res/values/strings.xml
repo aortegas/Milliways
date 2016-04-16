@@ -11,4 +11,7 @@
     <string name="COMENTARIOS_CAMBIOS">Comentarios, cambios...</string>
     <string name="NUEVO_PLATO">Nuevo Plato</string>
     <string name="PLATE_SELECTION">Selecciona Plato</string>
+    <string name="CUENTA">Cuenta</string>
+    <string name="NUMERO_PLATOS">Número de platos pedidos en la mesa:</string>
+    <string name="TOTAL_IMPORTE">Total importe platos:</string>
 </resources>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -66,12 +67,23 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
         }
     }
 
+    // Implements this method to show the menu.
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        // Show the menu.
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        // Return true, for indicate that we update the menu with a new option.
+        return true;
+    }
+
     // Implements this method, for a selections of a ActionBar.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean superValue = super.onOptionsItemSelected(item);
 
-        // We identify the item back
+        // We identify the item back.
         if (item.getItemId() == android.R.id.home) {
 
             // Finally the activity and go back, return data modification.
@@ -79,6 +91,22 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
             intent.putExtra(Constant.EXTRA_TABLE_RESULT, mTableModel);
             setResult(RESULT_OK, intent);
             finish();
+            return true;
+        }
+
+        // We identify the item menu settings.
+        if (item.getItemId() == R.id.menu_settings_detail_table) {
+
+            // We started the activity ActivitySettingsDetailTable to show a menu.
+            Intent intent = new Intent(this, ActivitySettingsDetailTable.class);
+            Bundle extras = new Bundle();
+
+            // We included in an intent information of the plates from the table.
+            extras.putSerializable(Constant.EXTRA_TABLE_DATA, mTableModel);
+            intent.putExtras(extras);
+
+            // We included in an intent information of the plates from the table.
+            startActivity(intent);
             return true;
         }
 
@@ -100,15 +128,7 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
     @Override
     public void onPlateSelected(Plate plate, int position) {
 
-
         Log.v("ActivityTableList", "Se ha seleccionado el plato: " + plate.getName() + "En la posicion" + position);
-
-
-
-
-
-
-
 
     }
 
