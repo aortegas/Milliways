@@ -8,6 +8,11 @@ public class Order extends Plate implements Serializable {
     // Attributes.
     private String mChanges;
 
+    // Getters and Setters.
+    public Plate getPlate() {
+        return super.getPlate();
+    }
+
     // Constructors.
     public Order(String name, String description, int image, double price, LinkedList<Allergen> allergens, String changes) {
         super(name, description, image, price, allergens);

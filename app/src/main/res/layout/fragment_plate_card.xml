@@ -27,6 +27,7 @@
                 android:id="@+id/fragment_plate_card_name_textview_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Plate"/>
 
             <TextView
@@ -66,7 +67,6 @@
             android:id="@+id/fragment_plate_card_image_imageview_id"
             android:layout_width="@dimen/plate_image_125dp"
             android:layout_height="@dimen/plate_image_125dp"
-            android:src="@drawable/plato01"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"/>
 

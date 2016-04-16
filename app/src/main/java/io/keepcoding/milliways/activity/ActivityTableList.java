@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -19,9 +18,11 @@ import io.keepcoding.milliways.model.Table;
 
 public class ActivityTableList extends AppCompatActivity implements FragmentPlateCardList.PlatesPagerListener, FragmentOrderAdd.OrderAddListener{
 
-    // Declare a variable for model.
+    // Declare variables for model.
     private Table mTableModel;
     private LinkedList<Plate> mPlatesModel;
+    // Declare variable for the fragment of the list.
+    private FragmentPlateCardList mFragmentPlateCardList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
         }
 
         // We go to load dinamically the fragment, with FragmentManager.
+        //FragmentManager fragmentManager = getFragmentManager();
         FragmentManager fragmentManager = getFragmentManager();
 
         // If we are not associated fragment of times before (this method is executed with the rotation of the device),
@@ -51,12 +53,14 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
         if ((fragmentManager.findFragmentById(R.id.activity_table_list_frame_list_id) == null) &&
             (fragmentManager.findFragmentById(R.id.activity_table_list_frame_button_id) == null)) {
 
-            LinkedList<Plate> platesInTable = new LinkedList<>();
+            // We get fragment of the list.
+            mFragmentPlateCardList = FragmentPlateCardList.newInstance(transformOrdersToPlates());
 
             // Transactions allow loading and removal of various fragment at the same time.
             // We inform the model with the tables to fragment.
+            // Important: See the method transformOrdersToPlates() for get list of plates.
             fragmentManager.beginTransaction()
-                    .add(R.id.activity_table_list_frame_list_id, FragmentPlateCardList.newInstance(platesInTable))
+                    .add(R.id.activity_table_list_frame_list_id, mFragmentPlateCardList)
                     .add(R.id.activity_table_list_frame_button_id, new FragmentOrderAdd())
                     .commit();
         }
@@ -94,14 +98,13 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
 
     // Implements the interface, to allow comunicate with our fragment
     @Override
-    public void onPlateSelected(Plate plate) {
+    public void onPlateSelected(Plate plate, int position) {
+
+
+        Log.v("ActivityTableList", "Se ha seleccionado el plato: " + plate.getName() + "En la posicion" + position);
 
 
 
-
-
-
-        Log.v("ActivityTableList", "Se ha seleccionado el plato: " + plate.getName());
 
 
 
@@ -134,8 +137,30 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
         // Verify Request Code.
         if (resultCode == RESULT_OK) {
             if (requestCode == Constant.REQUEST_TABLE) {
+
+                // Update the model.
                 mTableModel = (Table) data.getSerializableExtra(Constant.EXTRA_TABLE_RESULT);
+                // Update data of the adapter of fragment and reload list.
+                mFragmentPlateCardList.getAdapterPlateCardList().updateData(transformOrdersToPlates());
             }
         }
+    }
+
+    // Private methods.
+    // Create a Linkedlist<Plate> object from a table model, for list.
+    private LinkedList<Plate> transformOrdersToPlates() {
+
+        // Create a LinkedList<Plate> Object.
+        LinkedList<Plate> platesModel = new LinkedList<>();
+
+        // Get all orders and transform to plates.
+        for (int i = 0; i < mTableModel.getOrders().size(); i++) {
+
+            Plate plateModel = mTableModel.getOrders().get(i).getPlate();
+            platesModel.add(plateModel);
+        }
+
+        // Finally we return LinkedList<Plates>
+        return platesModel;
     }
 }

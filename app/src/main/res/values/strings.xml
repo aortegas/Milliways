@@ -6,4 +6,9 @@
     <string name="REINTENTAR">Reintentar</string>
     <string name="ACABAR">Acabar</string>
     <string name="DIVISA">"Euros"</string>
+    <string name="CANCELAR">Cancelar</string>
+    <string name="ACEPTAR">Aceptar</string>
+    <string name="COMENTARIOS_CAMBIOS">Comentarios, cambios...</string>
+    <string name="NUEVO_PLATO">Nuevo Plato</string>
+    <string name="PLATE_SELECTION">Selecciona Plato</string>
 </resources>

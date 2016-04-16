@@ -37,6 +37,10 @@ public class Plate implements Serializable {
         return mAllegens;
     }
 
+    public Plate getPlate() {
+        return this;
+    }
+
     // Constructors.
     public Plate(String name, String description, int image, double price, LinkedList<Allergen> allergens) {
         mName = name;

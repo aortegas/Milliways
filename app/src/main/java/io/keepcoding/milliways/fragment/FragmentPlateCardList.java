@@ -9,17 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.LinkedList;
 
 import io.keepcoding.milliways.R;
 import io.keepcoding.milliways.adapter.AdapterPlateCardList;
 import io.keepcoding.milliways.model.Plate;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FragmentPlateCardList extends Fragment implements AdapterPlateCardList.PlateCardListener {
+public class FragmentPlateCardList extends Fragment implements AdapterPlateCardList.PlateCardListener  {
 
     // Attributes.
     // We keep the data model to show.
@@ -29,10 +25,13 @@ public class FragmentPlateCardList extends Fragment implements AdapterPlateCardL
     // We keep a reference to our activity, that will be our listener.
     private PlatesPagerListener mPlatesPagerListener;
 
-    // Constructors.
-    public FragmentPlateCardList() {
+    // Getter and Setter.
+    // Public method for return the adapter of RecyclerView.
+    public AdapterPlateCardList getAdapterPlateCardList() {
+        return (AdapterPlateCardList) mRecyclerView.getAdapter();
     }
 
+    // Constructors.
     public static FragmentPlateCardList newInstance(LinkedList<Plate> plates) {
 
         // We create, initialize and return the fragment.
@@ -80,12 +79,12 @@ public class FragmentPlateCardList extends Fragment implements AdapterPlateCardL
 
     // We implements this method we as listener the Adapter.
     @Override
-    public void onPlateCardSelected(Plate plate, View view) {
+    public void onPlateCardSelected(Plate plate, View view, int position) {
 
         // In this case, inform our listener to the click in some plate.
         if (mPlatesPagerListener != null) {
 
-            mPlatesPagerListener.onPlateSelected(plate);
+            mPlatesPagerListener.onPlateSelected(plate, position);
         }
     }
 
@@ -94,6 +93,6 @@ public class FragmentPlateCardList extends Fragment implements AdapterPlateCardL
     public interface PlatesPagerListener {
 
         // Method for plates selection.
-        void onPlateSelected(Plate plate);
+        void onPlateSelected(Plate plate, int position);
     }
 }

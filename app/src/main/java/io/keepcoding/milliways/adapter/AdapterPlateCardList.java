@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.LinkedList;
 
 import io.keepcoding.milliways.R;
@@ -43,7 +42,7 @@ public class AdapterPlateCardList extends RecyclerView.Adapter<AdapterPlateCardL
     @Override
     public void onBindViewHolder(PlateViewHolder holder, int position) {
 
-        holder.bindForecast(mPlatesModel.get(position), mContext);
+        holder.bindPlate(mPlatesModel.get(position), mContext);
     }
 
     // We implement mandatory method, to return the number of element to list.
@@ -52,6 +51,12 @@ public class AdapterPlateCardList extends RecyclerView.Adapter<AdapterPlateCardL
         return mPlatesModel.size();
     }
 
+    // Public method for update data from Adapter and reload list.
+    public void updateData (LinkedList<Plate> plates) {
+        mPlatesModel.clear();
+        mPlatesModel.addAll(plates);
+        notifyDataSetChanged();
+    }
 
     // Internal class to create the ViewHolder.
     // The ViewHolder get references to view, inform to controller to click into the view and inform the view with data model.
@@ -59,6 +64,7 @@ public class AdapterPlateCardList extends RecyclerView.Adapter<AdapterPlateCardL
 
         // Atrribute for model.
         private Plate mPlateModel;
+        private int mPlateSelected;
 
         // Attributes View.
         private TextView mNameTextView;
@@ -86,16 +92,17 @@ public class AdapterPlateCardList extends RecyclerView.Adapter<AdapterPlateCardL
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    parentClickListener.onPlateCardSelected(mPlateModel, v);
+                    parentClickListener.onPlateCardSelected(mPlateModel, v, mPlateSelected);
                 }
             });
         }
 
         // Method to inform view with data model.
-        public void bindForecast(Plate plate, Context context) {
+        public void bindPlate(Plate plate, Context context) {
 
             // Set de model.
             mPlateModel = plate;
+            mPlateSelected = getAdapterPosition();
 
             // Show the data into the view.
             mNameTextView.setText(mPlateModel.getName());
@@ -119,6 +126,6 @@ public class AdapterPlateCardList extends RecyclerView.Adapter<AdapterPlateCardL
 
     // Declare interface to selection plate.
     public interface PlateCardListener {
-        void onPlateCardSelected(Plate plate, View view);
+        void onPlateCardSelected(Plate plate, View view, int position);
     }
 }

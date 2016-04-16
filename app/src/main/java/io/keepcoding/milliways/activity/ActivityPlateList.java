@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -89,7 +88,7 @@ public class ActivityPlateList extends AppCompatActivity implements FragmentPlat
 
     // Implements the interface, to allow comunicate with our fragment
     @Override
-    public void onPlateSelected(Plate plate) {
+    public void onPlateSelected(Plate plate, int position) {
 
         // We started the activity ActivityTableList to show a table plates.
         Intent intent = new Intent(this, ActivityPlateDetail.class);
