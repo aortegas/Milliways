@@ -3,10 +3,6 @@ package io.keepcoding.milliways.model;
 import java.io.Serializable;
 import java.util.LinkedList;
 
-/**
- * Created by alberto on 12/4/16.
- * Class for definition of an array of plates
- */
 public class Table implements Serializable {
 
     // Attributes.

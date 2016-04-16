@@ -14,9 +14,6 @@ import io.keepcoding.milliways.R;
 import io.keepcoding.milliways.model.Restaurant;
 import io.keepcoding.milliways.model.Table;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FragmentRestaurantList extends Fragment {
 
     // Attributes.
