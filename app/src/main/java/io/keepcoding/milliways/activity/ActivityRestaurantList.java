@@ -31,7 +31,7 @@ public class ActivityRestaurantList extends AppCompatActivity implements Fragmen
         ArrayList arrayListTemp = (ArrayList) getIntent().getSerializableExtra(Constant.EXTRA_PLATES_DATA);
         mPlatesModel = new LinkedList<>(arrayListTemp);
 
-        // We load the the layout of activity.
+        // We load the view of activity.
         setContentView(R.layout.activity_restaurant_list);
 
         // We go to load dinamically the fragment, with FragmentManager.

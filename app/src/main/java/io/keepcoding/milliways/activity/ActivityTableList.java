@@ -20,19 +20,19 @@ import io.keepcoding.milliways.model.Table;
 public class ActivityTableList extends AppCompatActivity implements FragmentPlateCardList.PlatesPagerListener, FragmentOrderAdd.OrderAddListener{
 
     // Declare a variable for model.
-    private Table mTable;
+    private Table mTableModel;
     private LinkedList<Plate> mPlatesModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Associated view with fragment.
+        // We load the view of activity.
         setContentView(R.layout.activity_table_list);
 
         // We retrieve information from the selected table of intent, with the public constant stated above.
         // If we don't have the information, we say charge the first table.
-        mTable = (Table) getIntent().getSerializableExtra(Constant.EXTRA_TABLE_DATA);
+        mTableModel = (Table) getIntent().getSerializableExtra(Constant.EXTRA_TABLE_DATA);
         ArrayList arrayListTemp = (ArrayList) getIntent().getSerializableExtra(Constant.EXTRA_PLATES_DATA);
         mPlatesModel = new LinkedList<>(arrayListTemp);
 
@@ -40,7 +40,7 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
         // For this to work, we must implement the methods menu.
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + mTable.getName());
+            getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + mTableModel.getName());
         }
 
         // We go to load dinamically the fragment, with FragmentManager.
@@ -72,13 +72,24 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
 
             // Finally the activity and go back, return data modification.
             Intent intent = new Intent();
-            intent.putExtra(Constant.EXTRA_TABLE_RESULT, mTable);
+            intent.putExtra(Constant.EXTRA_TABLE_RESULT, mTableModel);
             setResult(RESULT_OK, intent);
             finish();
             return true;
         }
 
         return superValue;
+    }
+
+    // Implements this method, for button back action.
+    @Override
+    public void onBackPressed() {
+
+        // Finally the activity and go back, return data modification.
+        Intent intent = new Intent();
+        intent.putExtra(Constant.EXTRA_TABLE_RESULT, mTableModel);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     // Implements the interface, to allow comunicate with our fragment
@@ -98,16 +109,33 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
 
     }
 
+    // Implements the add order for table action.
     @Override
     public void onAddOrderToTable() {
 
         // We started the activity ActivityTableList to show a table plates.
         Intent intent = new Intent(this, ActivityPlateList.class);
+        Bundle extras = new Bundle();
 
         // We included in an intent information of the plates from the table.
-        intent.putExtra(Constant.EXTRA_PLATES_DATA, mPlatesModel);
+        extras.putSerializable(Constant.EXTRA_TABLE_DATA, mTableModel);
+        extras.putSerializable(Constant.EXTRA_PLATES_DATA, mPlatesModel);
+        intent.putExtras(extras);
 
-        // Finally, we start the activity.
-        startActivity(intent);
+        // We included in an intent information of the plates from the table.
+        startActivityForResult(intent, Constant.REQUEST_TABLE);
+    }
+
+    // Implements this method, for update data model.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Verify Request Code.
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Constant.REQUEST_TABLE) {
+                mTableModel = (Table) data.getSerializableExtra(Constant.EXTRA_TABLE_RESULT);
+            }
+        }
     }
 }

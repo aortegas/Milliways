@@ -29,9 +29,9 @@ public class Table implements Serializable {
     }
 
     // Methods.
-    //public void addOrderToTable(Order order) {
-    //    this.mOrders.add(order);
-    //}
+    public void addOrderToTable(Order order) {
+        this.mOrders.add(order);
+    }
 
     // Override toString to show de table name at the list.
     public String toString() {

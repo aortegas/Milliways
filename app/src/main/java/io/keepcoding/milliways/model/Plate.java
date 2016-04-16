@@ -45,4 +45,12 @@ public class Plate implements Serializable {
         mPrice = price;
         mAllegens = allergens;
     }
+
+    public Plate(Plate plate) {
+        mName = plate.getName();
+        mDescription = plate.getDescription();
+        mImage = plate.getImage();
+        mPrice = plate.getPrice();
+        mAllegens = plate.getAllegens();
+    }
 }

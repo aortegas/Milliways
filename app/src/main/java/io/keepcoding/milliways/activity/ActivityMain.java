@@ -36,7 +36,7 @@ public class ActivityMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // We load the the layout of activity.
+        // We load the view of activity.
         setContentView(R.layout.activity_main);
 
         // Access to view.

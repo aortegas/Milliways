@@ -13,4 +13,9 @@ public class Order extends Plate implements Serializable {
         super(name, description, image, price, allergens);
         mChanges = changes;
     }
+
+    public Order(Plate plate, String changes) {
+        super(plate);
+        mChanges = changes;
+    }
 }
