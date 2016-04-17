@@ -3,19 +3,22 @@ package io.keepcoding.milliways.fragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import io.keepcoding.milliways.R;
 import io.keepcoding.milliways.adapter.AdapterPlateCardList;
 import io.keepcoding.milliways.model.Plate;
 
-public class FragmentPlateCardList extends Fragment implements AdapterPlateCardList.PlateCardListener  {
+public class FragmentPlateCardList extends Fragment implements AdapterPlateCardList.PlateCardListener {
 
     // Attributes.
     // We keep the data model to show.
@@ -56,6 +59,11 @@ public class FragmentPlateCardList extends Fragment implements AdapterPlateCardL
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_plate_card_list, container, false);
 
+        // Get a data model. If data exits in a instance previous, we get from that.
+        if (savedInstanceState != null) {
+            mPlates = (LinkedList<Plate>) savedInstanceState.getSerializable("mPlates");
+        }
+
         // Connect with view.
         mRecyclerView = (RecyclerView) root.findViewById(R.id.fragment_plates_card_list_recyclerview_id);
 
@@ -68,6 +76,14 @@ public class FragmentPlateCardList extends Fragment implements AdapterPlateCardL
 
         // We return the view.
         return root;
+    }
+
+    // We implement this method, for save data before this object is destroyed, for example when there are rotation of device.
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.putSerializable("mPlates", mPlates);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     // If we implements onAttach methods, we can implement onDetach method for disconnect activity.

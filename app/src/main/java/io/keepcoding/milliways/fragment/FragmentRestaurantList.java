@@ -47,8 +47,13 @@ public class FragmentRestaurantList extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
 
-        // Conect with view.
+        // Connect with view.
         ListView listView = (ListView) root.findViewById(R.id.fragment_restaurant_list_listview_id);
+
+        // Get a data model. If data exits in a instance previous, we get from that.
+        if (savedInstanceState != null) {
+            mRestaurant = (Restaurant) savedInstanceState.getSerializable("mRestaurant");
+        }
 
         // Create adapter for list. We give the context, style and data tables.
         final ArrayAdapter<Table> arrayAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1, mRestaurant.getTables());
@@ -74,6 +79,14 @@ public class FragmentRestaurantList extends Fragment {
         });
 
         return root;
+    }
+
+    // We implement this method, for save data before this object is destroyed, for example when there are rotation of device.
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.putSerializable("mRestaurant", mRestaurant);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     // If we implements onAttach methods, we can implement onDetach method for disconnect activity.

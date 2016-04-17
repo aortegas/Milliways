@@ -14,4 +14,5 @@
     <string name="CUENTA">Cuenta</string>
     <string name="NUMERO_PLATOS">Número de platos pedidos en la mesa:</string>
     <string name="TOTAL_IMPORTE">Total importe platos:</string>
+    <string name="IMAGEN_PLATO">Imagen Plato</string>
 </resources>

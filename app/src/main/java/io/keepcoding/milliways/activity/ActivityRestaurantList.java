@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -26,10 +27,16 @@ public class ActivityRestaurantList extends AppCompatActivity implements Fragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Get a data model.
-        mRestaurantModel = (Restaurant) getIntent().getSerializableExtra(Constant.EXTRA_TABLES_DATA);
-        ArrayList arrayListTemp = (ArrayList) getIntent().getSerializableExtra(Constant.EXTRA_PLATES_DATA);
-        mPlatesModel = new LinkedList<>(arrayListTemp);
+        // Get a data model. If data exits in a instance previous, we get from that.
+        if (savedInstanceState == null) {
+            mRestaurantModel = (Restaurant) getIntent().getSerializableExtra(Constant.EXTRA_TABLES_DATA);
+            ArrayList arrayListTemp = (ArrayList) getIntent().getSerializableExtra(Constant.EXTRA_PLATES_DATA);
+            mPlatesModel = new LinkedList<>(arrayListTemp);
+        }
+        else {
+            mRestaurantModel = (Restaurant) savedInstanceState.getSerializable("mRestaurantModel");
+            mPlatesModel = (LinkedList<Plate>) savedInstanceState.getSerializable("mPlatesModel");
+        }
 
         // We load the view of activity.
         setContentView(R.layout.activity_restaurant_list);
@@ -47,6 +54,15 @@ public class ActivityRestaurantList extends AppCompatActivity implements Fragmen
                     .add(R.id.activity_tables_frame_list_id, FragmentRestaurantList.newInstance(mRestaurantModel))
                     .commit();
         }
+    }
+
+    // We implement this method, for save data before this object is destroyed, for example when there are rotation of device.
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.putSerializable("mRestaurantModel", mRestaurantModel);
+        savedInstanceState.putSerializable("mPlatesModel", mPlatesModel);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     // Implements the interface, to allow comunicate with our fragment

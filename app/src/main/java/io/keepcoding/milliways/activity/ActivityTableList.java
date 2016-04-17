@@ -1,5 +1,6 @@
 package io.keepcoding.milliways.activity;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,8 +23,6 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
     // Declare variables for model.
     private Table mTableModel;
     private LinkedList<Plate> mPlatesModel;
-    // Declare variable for the fragment of the list.
-    private FragmentPlateCardList mFragmentPlateCardList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +33,16 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
 
         // We retrieve information from the selected table of intent, with the public constant stated above.
         // If we don't have the information, we say charge the first table.
-        mTableModel = (Table) getIntent().getSerializableExtra(Constant.EXTRA_TABLE_DATA);
-        ArrayList arrayListTemp = (ArrayList) getIntent().getSerializableExtra(Constant.EXTRA_PLATES_DATA);
-        mPlatesModel = new LinkedList<>(arrayListTemp);
+        // Get a data model. If data exits in a instance previous, we get from that.
+        if (savedInstanceState == null) {
+            mTableModel = (Table) getIntent().getSerializableExtra(Constant.EXTRA_TABLE_DATA);
+            ArrayList arrayListTemp = (ArrayList) getIntent().getSerializableExtra(Constant.EXTRA_PLATES_DATA);
+            mPlatesModel = new LinkedList<>(arrayListTemp);
+        }
+        else {
+            mTableModel = (Table) savedInstanceState.getSerializable("mTableModel");
+            mPlatesModel = (LinkedList<Plate>) savedInstanceState.getSerializable("mPlatesModel");
+        }
 
         // We indicate the action bar a button to go back.
         // For this to work, we must implement the methods menu.
@@ -54,17 +60,23 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
         if ((fragmentManager.findFragmentById(R.id.activity_table_list_frame_list_id) == null) &&
             (fragmentManager.findFragmentById(R.id.activity_table_list_frame_button_id) == null)) {
 
-            // We get fragment of the list.
-            mFragmentPlateCardList = FragmentPlateCardList.newInstance(transformOrdersToPlates());
-
             // Transactions allow loading and removal of various fragment at the same time.
             // We inform the model with the tables to fragment.
             // Important: See the method transformOrdersToPlates() for get list of plates.
             fragmentManager.beginTransaction()
-                    .add(R.id.activity_table_list_frame_list_id, mFragmentPlateCardList)
-                    .add(R.id.activity_table_list_frame_button_id, new FragmentOrderAdd())
-                    .commit();
+                .add(R.id.activity_table_list_frame_list_id, FragmentPlateCardList.newInstance(transformOrdersToPlates()))
+                .add(R.id.activity_table_list_frame_button_id, new FragmentOrderAdd())
+                .commit();
         }
+    }
+
+    // We implement this method, for save data before this object is destroyed, for example when there are rotation of device.
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.putSerializable("mTableModel", mTableModel);
+        savedInstanceState.putSerializable("mPlatesModel", mPlatesModel);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     // Implements this method to show the menu.
@@ -160,8 +172,10 @@ public class ActivityTableList extends AppCompatActivity implements FragmentPlat
 
                 // Update the model.
                 mTableModel = (Table) data.getSerializableExtra(Constant.EXTRA_TABLE_RESULT);
+
                 // Update data of the adapter of fragment and reload list.
-                mFragmentPlateCardList.getAdapterPlateCardList().updateData(transformOrdersToPlates());
+                FragmentPlateCardList fragmentPlateCardList = (FragmentPlateCardList) this.getFragmentManager().findFragmentById(R.id.activity_table_list_frame_list_id);
+                fragmentPlateCardList.getAdapterPlateCardList().updateData(transformOrdersToPlates());
             }
         }
     }

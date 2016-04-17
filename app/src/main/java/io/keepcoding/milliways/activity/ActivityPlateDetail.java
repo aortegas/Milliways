@@ -30,7 +30,13 @@ public class ActivityPlateDetail extends AppCompatActivity {
 
         // We retrieve information from the selected table of intent, with the public constant stated above.
         // If we don't have the information, we say charge the first table.
-        mPlateModel = (Plate) getIntent().getSerializableExtra(Constant.EXTRA_PLATE_DATA);
+        // Get a data model. If data exits in a instance previous, we get from that.
+        if (savedInstanceState == null) {
+            mPlateModel = (Plate) getIntent().getSerializableExtra(Constant.EXTRA_PLATE_DATA);
+        }
+        else {
+            mPlateModel = (Plate) savedInstanceState.getSerializable("mPlateModel");
+        }
 
         // We indicate the action bar a button to go back.
         // For this to work, we must implement the methods menu.
@@ -102,6 +108,14 @@ public class ActivityPlateDetail extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    // We implement this method, for save data before this object is destroyed, for example when there are rotation of device.
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.putSerializable("mPlateModel", mPlateModel);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     // Implements this method, for a selections of a ActionBar.
