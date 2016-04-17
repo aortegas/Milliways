@@ -4,6 +4,8 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -11,8 +13,8 @@ import io.keepcoding.milliways.Constant;
 import io.keepcoding.milliways.R;
 import io.keepcoding.milliways.fragment.FragmentRestaurantList;
 import io.keepcoding.milliways.model.Plate;
-import io.keepcoding.milliways.model.Restaurant;
 import io.keepcoding.milliways.model.Table;
+import io.keepcoding.milliways.model.Restaurant;
 
 public class ActivityRestaurantList extends AppCompatActivity implements FragmentRestaurantList.TableListListener {
 
@@ -97,8 +99,3 @@ public class ActivityRestaurantList extends AppCompatActivity implements Fragmen
         }
     }
 }
-
-
-
-
-
